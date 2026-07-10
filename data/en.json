@@ -119,20 +119,51 @@
   "projects": [
     {
       "name": "Hidden in Plain Sight: Dog Whistle Detection, Classification, and Explanation",
-      "url": "https://github.com/your-username/project-one",
+      "url": "https://github.com/jamaisisolee/dogwhistle-detection",
       "description": "End-to-end NLP pipeline for dog-whistle detection, ingroup classification, and structured explanation using RoBERTa and Flan-T5+LoRA, with a focus on robust evaluation and model generalisation.",
       "tech": ["Python · PyTorch · NLP classification · text generation · JSON parsing · TF-IDF · GPU/HPC training."]
     },
     {
       "name": "Beyond Random Pairing: Modeling Assorrative Matching and Hub Formation",
-      "url": "https://github.com/your-username/project-two",
+      "url": "https://github.com/ceciliaalocicero/dating-app-sti-simulation",
       "description": "Developed an empirically calibrated agent-based network simulation using 60K OKCupid profiles to model how assortative matching and hub formation shape STI transmission dynamics under a multi-pathogen SEIS framework.",
       "tech": ["Python · Agent-Based Modelling · Network Simulation · SEIS Epidemiological Modelling · Hub Formation · Pandas/NumPy · Matplotlib"]
     }
   ],
-  "skills": [
-    { "category": "Languages", "items": ["Language A", "Language B", "Language C"] },
-    { "category": "Frameworks & Tools", "items": ["Tool A", "Tool B", "Tool C"] },
-    { "category": "Other", "items": ["Skill A", "Skill B"] }
-  ]
+  "skills": {
+    "programmingData": [
+      "Python",
+      "SQL",
+      "Git/GitHub",
+      "Pandas",
+      "NumPy",
+      "EDA"
+    ],
+    "machineLearningStatistics": [
+      "Machine Learning",
+      "Regression Analysis",
+      "Time Series Analysis",
+      "NLP",
+      "scikit-learn",
+      "PyTorch",
+      "Hugging Face"
+    ],
+    "analyticsBI": [
+      "Dashboarding",
+      "KPI Design",
+      "Performance Analysis",
+      "Commercial Analytics",
+      "Product Analytics",
+      "Data Visualization",
+      "Data-Driven Decision Making"
+    ],
+    "workflow": [
+      "markdown",
+      "LaTeX",
+      "JupyterStudio",
+      "Anaconda",
+      "Linux",
+      "Container Management (WSL2, Podman, Grafana, Docker)",
+    ]
+  }
 }
