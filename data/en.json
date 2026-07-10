@@ -16,7 +16,6 @@
     "language": "Language",
     "viewProject": "View"
   },
-  {
   "profile": {
     "name": "Alissa Sharuda",
     "title": "Data Science MSc Candidate | Data, Strategy & Product Analytics",
@@ -41,11 +40,11 @@
     },
     {
       "degree": "BComm, Specialization in Management, Focus in Finance, Marketing, International Business; Minor in Economics",
-      "school": "Universitry of Toronto, Rotman Commerce (#21 University Globally, THE Rankings)",
+      "school": "University of Toronto, Rotman Commerce (#21 University Globally, THE Rankings)",
       "location": "Toronto, Canada",
       "start": "2018",
       "end": "2022",
-      "achievements": "Graduated with Distinction; University of Toronto Global Scholar",
+      "achievements": "Graduated with Distinction; University of Toronto Global Scholar"
     }
   ],
   "experience": [
@@ -65,7 +64,7 @@
     },
     {
       "role": "Business Analyst | Global Capital Markets Solutions ",
-      "company": "Nasdsaq",
+      "company": "Nasdaq",
       "url": "https://www.nasdaq.com/solutions/investment-intelligence",
       "location": "Toronto, Canada",
       "start": "2023",
@@ -124,7 +123,7 @@
       "tech": ["Python · PyTorch · NLP classification · text generation · JSON parsing · TF-IDF · GPU/HPC training."]
     },
     {
-      "name": "Beyond Random Pairing: Modeling Assorrative Matching and Hub Formation",
+      "name": "Beyond Random Pairing: Modeling Assortative Matching and Hub Formation",
       "url": "https://github.com/ceciliaalocicero/dating-app-sti-simulation",
       "description": "Developed an empirically calibrated agent-based network simulation using 60K OKCupid profiles to model how assortative matching and hub formation shape STI transmission dynamics under a multi-pathogen SEIS framework.",
       "tech": ["Python · Agent-Based Modelling · Network Simulation · SEIS Epidemiological Modelling · Hub Formation · Pandas/NumPy · Matplotlib"]
@@ -160,10 +159,10 @@
     "workflow": [
       "markdown",
       "LaTeX",
-      "JupyterStudio",
+      "Jupyter Notebook",
       "Anaconda",
       "Linux",
-      "Container Management (WSL2, Podman, Grafana, Docker)",
+      "Container Management (WSL2, Podman, Grafana, Docker)"
     ]
   }
 }
