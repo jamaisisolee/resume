@@ -16,20 +16,19 @@
     "language": "Language",
     "viewProject": "View"
   },
+  {
   "profile": {
     "name": "Alissa Sharuda",
     "title": "Data Science MSc Candidate | Data, Strategy & Product Analytics",
     "location": "Milan, Italy",
     "tagline": "I combine data science, strategic thinking, and client-facing experience to translate complex analytical problems into clear, actionable business and product decisions.",
-    "summary": Data Science MSc candidate at Bocconi University with experience across statistical modelling, machine learning, econometrics, and time series analysis. I am interested in technical roles at the intersection of data, strategy, and product, where I can translate complex problems into actionable business decisions and lead cross-functional discussions with technical and non-technical stakeholders. 
-    
-    I bring "3"+ years of experience delivering strategic recommendations for public entities and large-cap clients, supporting projects across market positioning, operational transformation, and data-driven decision-making. My background combines strong technical capabilities with strategic rigour and commercial understanding, allowing me to bridge technical and business functions and communicate complex concepts clearly to audiences of varying seniority.",
+    "summary": "Data Science MSc candidate at Bocconi University with experience across statistical modelling, machine learning, econometrics, and time series analysis. I am interested in technical roles at the intersection of data, strategy, and product, where I can translate complex problems into actionable business decisions and lead cross-functional discussions with technical and non-technical stakeholders. I bring 3+ years of experience delivering strategic recommendations for public entities and large-cap clients, supporting projects across market positioning, operational transformation, and data-driven decision-making. My background combines strong technical capabilities with strategic rigour and commercial understanding, allowing me to bridge technical and business functions and communicate complex concepts clearly to audiences of varying seniority.",
     "links": [
       { "label": "GitHub", "url": "https://github.com/jamaisisolee" },
       { "label": "LinkedIn", "url": "https://www.linkedin.com/in/alissasharuda" },
       { "label": "Email", "url": "mailto:alissa.sharuda@studbocconi.it" }
     ]
-  },
+    },
   "education": [
     {
       "degree": "Degree, Field of Study",
