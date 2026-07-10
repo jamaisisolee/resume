@@ -31,11 +31,21 @@
     },
   "education": [
     {
-      "degree": "Degree, Field of Study",
-      "school": "University or Institution",
-      "location": "City, Country",
-      "start": "2016",
-      "end": "2020"
+      "degree": "MSc Data Science and Business Analytics",
+      "school": "Bocconi University (#1 European Business School)",
+      "location": "Milan, Italy",
+      "start": "2025",
+      "end": "2027",
+      "achievements": "MAECI (Ministry of Foreign Affairs of Italy) Scholarship Awardee (Merit-Based)",
+      "relevant courses": "Natural Language Processing, Simulation and Modelling, Statistical Machine Learning, Computer Programming and Algorithms, Computer Vision, Finance with Big Data"
+    },
+    {
+      "degree": "BComm, Specialization in Management, Focus in Finance, Marketing, International Business; Minor in Economics",
+      "school": "Universitry of Toronto, Rotman Commerce (#21 University Globally, THE Rankings)",
+      "location": "Toronto, Canada",
+      "start": "2018",
+      "end": "2022",
+      "achievements": "Graduated with Distinction; University of Toronto Global Scholar",
     }
   ],
   "experience": [
@@ -108,16 +118,16 @@
   ],
   "projects": [
     {
-      "name": "Project One",
+      "name": "Hidden in Plain Sight: Dog Whistle Detection, Classification, and Explanation",
       "url": "https://github.com/your-username/project-one",
-      "description": "A one-line description of what the project does and why it matters.",
-      "tech": ["Tech", "Stack", "Here"]
+      "description": "End-to-end NLP pipeline for dog-whistle detection, ingroup classification, and structured explanation using RoBERTa and Flan-T5+LoRA, with a focus on robust evaluation and model generalisation.",
+      "tech": ["Python · PyTorch · NLP classification · text generation · JSON parsing · TF-IDF · GPU/HPC training."]
     },
     {
-      "name": "Project Two",
+      "name": "Beyond Random Pairing: Modeling Assorrative Matching and Hub Formation",
       "url": "https://github.com/your-username/project-two",
-      "description": "Another short, clear description of the project's purpose and impact.",
-      "tech": ["Language", "Framework"]
+      "description": "Developed an empirically calibrated agent-based network simulation using 60K OKCupid profiles to model how assortative matching and hub formation shape STI transmission dynamics under a multi-pathogen SEIS framework.",
+      "tech": ["Python · Agent-Based Modelling · Network Simulation · SEIS Epidemiological Modelling · Hub Formation · Pandas/NumPy · Matplotlib"]
     }
   ],
   "skills": [
