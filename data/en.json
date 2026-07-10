@@ -6,11 +6,10 @@
   },
   "ui": {
     "summary": "Summary",
-    "achievements": "Key Achievements",
+    "education": "Education",
     "experience": "Experience",
     "projects": "Projects",
     "skills": "Skills",
-    "education": "Education",
     "contact": "Contact",
     "present": "Present",
     "print": "Download / Print",
@@ -18,31 +17,37 @@
     "viewProject": "View"
   },
   "profile": {
-    "name": "Your Name",
-    "title": "Your Professional Title",
-    "location": "City, Country",
-    "avatar": "",
-    "tagline": "One-line pitch about who you are and the value you bring.",
-    "summary": "A short paragraph (2-4 sentences) giving an overview of your career, your areas of expertise, and what kind of work you're looking for. Keep it generalistic and outcome-focused.",
+    "name": "Alissa Sharuda",
+    "title": "Data Science MSc Candidate | Data, Strategy & Product Analytics",
+    "location": "Milan, Italy",
+    "tagline": "I combine data science, strategic thinking, and client-facing experience to translate complex analytical problems into clear, actionable business and product decisions.",
+    "summary": Data Science MSc candidate at Bocconi University with experience across statistical modelling, machine learning, econometrics, and time series analysis. I am interested in technical roles at the intersection of data, strategy, and product, where I can translate complex problems into actionable business decisions and lead cross-functional discussions with technical and non-technical stakeholders. 
+    
+    I bring 3+ years of experience delivering strategic recommendations for public entities and large-cap clients, supporting projects across market positioning, operational transformation, and data-driven decision-making. My background combines strong technical capabilities with strategic rigour and commercial understanding, allowing me to bridge technical and business functions and communicate complex concepts clearly to audiences of varying seniority.
+
+",
     "links": [
-      { "label": "GitHub", "url": "https://github.com/your-username" },
-      { "label": "LinkedIn", "url": "https://www.linkedin.com/in/your-handle" },
-      { "label": "Email", "url": "mailto:you@example.com" },
-      { "label": "Website", "url": "https://your-website.com" }
+      { "label": "GitHub", "url": "https://github.com/jamaisisolee" },
+      { "label": "LinkedIn", "url": "https://www.linkedin.com/in/alissasharuda" },
+      { "label": "Email", "url": "mailto:alissa.sharuda@studbocconi.it" }
     ]
   },
-  "achievements": [
-    "Led a project that achieved a measurable, impressive result (include a number if you can).",
-    "Delivered something notable that saved time, money, or improved a key metric.",
-    "Recognition, award, or milestone you're proud of."
+  "education": [
+    {
+      "degree": "Degree, Field of Study",
+      "school": "University or Institution",
+      "location": "City, Country",
+      "start": "2016",
+      "end": "2020"
+    }
   ],
   "experience": [
     {
-      "role": "Senior Role Title",
-      "company": "Company Name",
-      "url": "https://company.com",
-      "location": "City, Country",
-      "start": "2023",
+      "role": "Data Science Intern | Engineering, AI & Data Team | Technology Strategy and Transformation Team",
+      "company": "Deloitte",
+      "url": "https://www.deloitte.com/global/en/services/consulting/services/engineering-ai-data.html",
+      "location": "Toronto, Canada",
+      "start": "2026",
       "end": "",
       "current": true,
       "highlights": [
@@ -52,12 +57,51 @@
       ]
     },
     {
-      "role": "Previous Role Title",
-      "company": "Previous Company",
-      "url": "",
-      "location": "City, Country",
-      "start": "2020",
+      "role": "Business Analyst | Global Capital Markets Solutions ",
+      "company": "Nasdsaq",
+      "url": "https://www.nasdaq.com/solutions/investment-intelligence",
+      "location": "Toronto, Canada",
+      "start": "2023",
+      "end": "2025",
+      "current": false,
+      "highlights": [
+        "Key responsibility and the outcome you drove.",
+        "A project or initiative you led or contributed to."
+      ]
+    },
+    {
+      "role": "Management Consultant",
+      "company": "Nous Group",
+      "url": "https://nousgroup.com/",
+      "location": "Toronto, Canada",
+      "start": "2022",
       "end": "2023",
+      "current": false,
+      "highlights": [
+        "Key responsibility and the outcome you drove.",
+        "A project or initiative you led or contributed to."
+      ]
+    },
+    {
+      "role": "Marketing Analyst Intern",
+      "company": "Qonversion.io",
+      "url": "https://qonversion.io/",
+      "location": "San Francisco, USA",
+      "start": "2020",
+      "end": "2020",
+      "current": false,
+      "highlights": [
+        "Key responsibility and the outcome you drove.",
+        "A project or initiative you led or contributed to."
+      ]
+    },
+    {
+      "role": "Risk Analyst Intern",
+      "company": "ID Finance",
+      "url": "https://idfinance.com/",
+      "location": "Barcelona, Spain",
+      "start": "2020",
+      "end": "2020",
       "current": false,
       "highlights": [
         "Key responsibility and the outcome you drove.",
@@ -83,14 +127,5 @@
     { "category": "Languages", "items": ["Language A", "Language B", "Language C"] },
     { "category": "Frameworks & Tools", "items": ["Tool A", "Tool B", "Tool C"] },
     { "category": "Other", "items": ["Skill A", "Skill B"] }
-  ],
-  "education": [
-    {
-      "degree": "Degree, Field of Study",
-      "school": "University or Institution",
-      "location": "City, Country",
-      "start": "2016",
-      "end": "2020"
-    }
   ]
 }
