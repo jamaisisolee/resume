@@ -360,3 +360,9 @@ a:hover {
     color: #000;
   }
 }
+
+/* Added for education details such as scholarships and relevant coursework. */
+.entry-details {
+  color: var(--muted);
+  font-size: 14px;
+}
