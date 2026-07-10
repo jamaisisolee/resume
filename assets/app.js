@@ -1,10 +1,9 @@
 // ---------------------------------------------------------------------------
-// To add a new language:
-//   1. Copy data/en.json to data/<code>.json and translate it.
-//   2. Add the code to AVAILABLE_LANGS below (order = order in the dropdown).
-// Everything else is automatic.
+// Resume renderer
+// Add a new language by adding its data/<code>.json file and adding the code
+// to AVAILABLE_LANGS below.
 // ---------------------------------------------------------------------------
-const AVAILABLE_LANGS = ["en", "ru", "it", "fr"];
+const AVAILABLE_LANGS = ["en"];
 const DEFAULT_LANG = "en";
 const STORAGE_KEY = "resume-lang";
 
@@ -32,30 +31,95 @@ function el(tag, opts = {}) {
   return node;
 }
 
+function getNode(id) {
+  return document.getElementById(id);
+}
+
 function setText(id, value) {
-  const node = document.getElementById(id);
+  const node = getNode(id);
   if (node) node.textContent = value || "";
 }
 
+function clearNode(id) {
+  const node = getNode(id);
+  if (node) node.innerHTML = "";
+  return node;
+}
+
 function toggleSection(sectionId, hasContent) {
-  const node = document.getElementById(sectionId);
-  if (node) node.hidden = !hasContent;
+  const node = getNode(sectionId);
+  if (node) node.hidden = !Boolean(hasContent);
 }
 
 function isExternal(url) {
   return /^https?:\/\//i.test(url);
 }
 
+function asArray(value) {
+  return Array.isArray(value) ? value : [];
+}
+
+function toTitleCaseFromKey(key) {
+  const labels = {
+    programmingData: "Programming & Data",
+    machineLearningStatistics: "Machine Learning & Statistics",
+    analyticsBI: "Analytics & BI",
+    workflow: "Workflow",
+    modellingSimulation: "Modelling & Simulation",
+  };
+  if (labels[key]) return labels[key];
+  return String(key)
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .replace(/_/g, " ")
+    .replace(/\b\w/g, (m) => m.toUpperCase());
+}
+
+function normalizeSkills(skills) {
+  if (Array.isArray(skills)) {
+    return skills
+      .map((group) => ({
+        category: group.category || group.name || "Skills",
+        items: asArray(group.items),
+      }))
+      .filter((group) => group.items.length);
+  }
+
+  if (skills && typeof skills === "object") {
+    return Object.entries(skills)
+      .map(([key, items]) => ({
+        category: toTitleCaseFromKey(key),
+        items: asArray(items),
+      }))
+      .filter((group) => group.items.length);
+  }
+
+  return [];
+}
+
+function normalizeTechList(tech) {
+  if (!Array.isArray(tech)) return [];
+  return tech.flatMap((item) =>
+    String(item)
+      .replace(/\.$/, "")
+      .split(" · ")
+      .map((part) => part.trim())
+      .filter(Boolean)
+  );
+}
+
+function formatRange(entry, presentLabel) {
+  const end = entry.current || !entry.end ? presentLabel : entry.end;
+  return [entry.start, end].filter(Boolean).join(" - ");
+}
+
 function renderLinks(links) {
-  const list = document.getElementById("links");
-  list.innerHTML = "";
-  (links || []).forEach((link) => {
+  const list = clearNode("links");
+  if (!list) return;
+
+  asArray(links).forEach((link) => {
     if (!link.url) return;
     const li = el("li");
-    const a = el("a", {
-      text: link.label,
-      href: link.url,
-    });
+    const a = el("a", { text: link.label || link.url, href: link.url });
     if (isExternal(link.url)) {
       a.target = "_blank";
       a.rel = "noopener noreferrer";
@@ -66,26 +130,23 @@ function renderLinks(links) {
 }
 
 function renderList(containerId, items) {
-  const container = document.getElementById(containerId);
-  container.innerHTML = "";
-  (items || []).forEach((item) => {
+  const container = clearNode(containerId);
+  if (!container) return;
+
+  asArray(items).forEach((item) => {
     container.appendChild(el("li", { text: item }));
   });
 }
 
-function formatRange(entry, presentLabel) {
-  const end = entry.current || !entry.end ? presentLabel : entry.end;
-  return [entry.start, end].filter(Boolean).join(" — ");
-}
-
 function renderExperience(items, ui) {
-  const container = document.getElementById("experience");
-  container.innerHTML = "";
-  (items || []).forEach((job) => {
-    const entry = el("div", { className: "entry" });
+  const container = clearNode("experience");
+  if (!container) return;
 
+  asArray(items).forEach((job) => {
+    const entry = el("div", { className: "entry" });
     const head = el("div", { className: "entry-head" });
     const left = el("div");
+
     left.appendChild(el("p", { className: "entry-role", text: job.role }));
 
     const company = el("span", { className: "entry-company" });
@@ -95,20 +156,17 @@ function renderExperience(items, ui) {
       a.rel = "noopener noreferrer";
       company.appendChild(a);
     } else {
-      company.textContent = job.company;
+      company.textContent = job.company || "";
     }
-    if (job.location) {
-      company.appendChild(document.createTextNode(" · " + job.location));
-    }
+
+    if (job.location) company.appendChild(document.createTextNode(" · " + job.location));
     left.appendChild(company);
 
     head.appendChild(left);
-    head.appendChild(
-      el("span", { className: "entry-meta", text: formatRange(job, ui.present) })
-    );
+    head.appendChild(el("span", { className: "entry-meta", text: formatRange(job, ui.present || "Present") }));
     entry.appendChild(head);
 
-    if (job.highlights && job.highlights.length) {
+    if (asArray(job.highlights).length) {
       const ul = el("ul", { className: "entry-highlights" });
       job.highlights.forEach((h) => ul.appendChild(el("li", { text: h })));
       entry.appendChild(ul);
@@ -119,15 +177,16 @@ function renderExperience(items, ui) {
 }
 
 function renderProjects(items, ui) {
-  const container = document.getElementById("projects");
-  container.innerHTML = "";
-  (items || []).forEach((project) => {
-    const card = el("div", { className: "card" });
+  const container = clearNode("projects");
+  if (!container) return;
 
+  asArray(items).forEach((project) => {
+    const card = el("div", { className: "card" });
     const title = el("div", { className: "card-title" });
+
     title.appendChild(el("span", { text: project.name }));
     if (project.url) {
-      const a = el("a", { text: ui.viewProject, href: project.url });
+      const a = el("a", { text: ui.viewProject || "View", href: project.url });
       a.target = "_blank";
       a.rel = "noopener noreferrer";
       title.appendChild(a);
@@ -138,9 +197,10 @@ function renderProjects(items, ui) {
       card.appendChild(el("p", { className: "card-desc", text: project.description }));
     }
 
-    if (project.tech && project.tech.length) {
+    const techItems = normalizeTechList(project.tech);
+    if (techItems.length) {
       const tags = el("div", { className: "tags" });
-      project.tech.forEach((t) => tags.appendChild(el("span", { className: "tag", text: t })));
+      techItems.forEach((t) => tags.appendChild(el("span", { className: "tag", text: t })));
       card.appendChild(tags);
     }
 
@@ -148,59 +208,74 @@ function renderProjects(items, ui) {
   });
 }
 
-function renderSkills(groups) {
-  const container = document.getElementById("skills");
-  container.innerHTML = "";
-  (groups || []).forEach((group) => {
+function renderSkills(skills) {
+  const container = clearNode("skills");
+  if (!container) return;
+
+  normalizeSkills(skills).forEach((group) => {
     const row = el("div", { className: "skill-row" });
     row.appendChild(el("div", { className: "skill-cat", text: group.category }));
+
     const tags = el("div", { className: "tags" });
-    (group.items || []).forEach((item) =>
-      tags.appendChild(el("span", { className: "tag", text: item }))
-    );
+    group.items.forEach((item) => tags.appendChild(el("span", { className: "tag", text: item })));
+
     row.appendChild(tags);
     container.appendChild(row);
   });
 }
 
 function renderEducation(items) {
-  const container = document.getElementById("education");
-  container.innerHTML = "";
-  (items || []).forEach((edu) => {
+  const container = clearNode("education");
+  if (!container) return;
+
+  asArray(items).forEach((edu) => {
     const entry = el("div", { className: "entry" });
     const head = el("div", { className: "entry-head" });
     const left = el("div");
+
     left.appendChild(el("p", { className: "entry-role", text: edu.degree }));
+
     const school = el("span", { className: "entry-company" });
     school.textContent = [edu.school, edu.location].filter(Boolean).join(" · ");
     left.appendChild(school);
+
     head.appendChild(left);
-    head.appendChild(
-      el("span", {
-        className: "entry-meta",
-        text: [edu.start, edu.end].filter(Boolean).join(" — "),
-      })
-    );
+    head.appendChild(el("span", { className: "entry-meta", text: [edu.start, edu.end].filter(Boolean).join(" - ") }));
     entry.appendChild(head);
+
+    const details = [];
+    if (edu.achievements) details.push(edu.achievements);
+    if (edu.relevantCourses || edu["relevant courses"]) {
+      details.push("Relevant courses: " + (edu.relevantCourses || edu["relevant courses"]));
+    }
+
+    if (details.length) {
+      const ul = el("ul", { className: "entry-highlights entry-details" });
+      details.forEach((detail) => ul.appendChild(el("li", { text: detail })));
+      entry.appendChild(ul);
+    }
+
     container.appendChild(entry);
   });
 }
 
-function applyUiLabels(ui) {
+function applyUiLabels(ui = {}) {
   document.querySelectorAll("[data-ui]").forEach((node) => {
     const key = node.getAttribute("data-ui");
-    if (ui[key]) node.textContent = ui[key];
+    node.textContent = ui[key] || "";
   });
-  document.getElementById("lang-label").textContent = ui.language;
-  document.getElementById("print-btn").textContent = ui.print;
+  setText("lang-label", ui.language || "Language");
+  setText("print-btn", ui.print || "Download / Print");
 }
 
 function render(data) {
-  const { profile, ui, meta } = data;
+  const profile = data.profile || {};
+  const ui = data.ui || {};
+  const meta = data.meta || { lang: DEFAULT_LANG, dir: "ltr" };
 
-  document.documentElement.lang = meta.lang;
+  document.documentElement.lang = meta.lang || DEFAULT_LANG;
   document.documentElement.dir = meta.dir || "ltr";
-  document.title = [profile.name, profile.title].filter(Boolean).join(" — ") || "Resume";
+  document.title = [profile.name, profile.title].filter(Boolean).join(" - ") || "Resume";
 
   applyUiLabels(ui);
 
@@ -210,36 +285,39 @@ function render(data) {
   setText("location", profile.location);
   setText("summary", profile.summary);
 
-  const avatar = document.getElementById("avatar");
-  if (profile.avatar) {
-    avatar.src = profile.avatar;
-    avatar.alt = profile.name || "";
-    avatar.hidden = false;
-  } else {
-    avatar.hidden = true;
+  const avatar = getNode("avatar");
+  if (avatar) {
+    if (profile.avatar) {
+      avatar.src = profile.avatar;
+      avatar.alt = profile.name || "";
+      avatar.hidden = false;
+    } else {
+      avatar.hidden = true;
+    }
   }
 
   renderLinks(profile.links);
 
   renderList("achievements", data.achievements);
-  toggleSection("achievements-section", (data.achievements || []).length);
+  toggleSection("achievements-section", asArray(data.achievements).length);
 
   renderExperience(data.experience, ui);
-  toggleSection("experience-section", (data.experience || []).length);
+  toggleSection("experience-section", asArray(data.experience).length);
 
   renderProjects(data.projects, ui);
-  toggleSection("projects-section", (data.projects || []).length);
-
-  renderSkills(data.skills);
-  toggleSection("skills-section", (data.skills || []).length);
+  toggleSection("projects-section", asArray(data.projects).length);
 
   renderEducation(data.education);
-  toggleSection("education-section", (data.education || []).length);
+  toggleSection("education-section", asArray(data.education).length);
 
-  toggleSection("summary-section", !!profile.summary);
+  const skillGroups = normalizeSkills(data.skills);
+  renderSkills(skillGroups);
+  toggleSection("skills-section", skillGroups.length);
+
+  toggleSection("summary-section", Boolean(profile.summary));
 
   const year = new Date().getFullYear();
-  setText("footer-text", `${profile.name} · ${year}`);
+  setText("footer-text", profile.name ? `${profile.name} · ${year}` : "");
 }
 
 async function loadLang(lang) {
@@ -249,11 +327,12 @@ async function loadLang(lang) {
 }
 
 function buildLangSelect(current) {
-  const select = document.getElementById("lang-select");
+  const select = getNode("lang-select");
+  if (!select) return;
+
   select.innerHTML = "";
   AVAILABLE_LANGS.forEach((code) => {
     const option = el("option", { attrs: { value: code } });
-    // Label is filled after each file loads; fall back to the code meanwhile.
     option.textContent = code.toUpperCase();
     if (code === current) option.selected = true;
     select.appendChild(option);
@@ -267,17 +346,18 @@ async function setLang(lang, { updateHistory = true } = {}) {
   } catch (err) {
     console.error(err);
     if (lang !== DEFAULT_LANG) return setLang(DEFAULT_LANG, { updateHistory });
-    document.getElementById("name").textContent = "Failed to load resume data.";
+    setText("name", "Failed to load resume data.");
     return;
   }
 
   render(data);
   localStorage.setItem(STORAGE_KEY, lang);
 
-  // Update the dropdown option label with the language's native name.
   const option = document.querySelector(`#lang-select option[value="${lang}"]`);
   if (option && data.meta && data.meta.langName) option.textContent = data.meta.langName;
-  document.getElementById("lang-select").value = lang;
+
+  const select = getNode("lang-select");
+  if (select) select.value = lang;
 
   if (updateHistory) {
     const url = new URL(location.href);
@@ -286,7 +366,6 @@ async function setLang(lang, { updateHistory = true } = {}) {
   }
 }
 
-// Preload native language names for the dropdown labels.
 async function labelLangSelect() {
   await Promise.all(
     AVAILABLE_LANGS.map(async (code) => {
@@ -305,10 +384,11 @@ function init() {
   const initial = pickInitialLang();
   buildLangSelect(initial);
 
-  document.getElementById("lang-select").addEventListener("change", (e) => {
-    setLang(e.target.value);
-  });
-  document.getElementById("print-btn").addEventListener("click", () => window.print());
+  const select = getNode("lang-select");
+  if (select) select.addEventListener("change", (e) => setLang(e.target.value));
+
+  const printButton = getNode("print-btn");
+  if (printButton) printButton.addEventListener("click", () => window.print());
 
   setLang(initial, { updateHistory: false });
   labelLangSelect();
